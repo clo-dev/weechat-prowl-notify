@@ -36,7 +36,6 @@ def reset_timer(data, remaining_calls):
     global isReset
     if isReset == 0:
         isReset = 1
-        weechat.prnt("", str(isReset))
 
     return weechat.WEECHAT_RC_OK
 
@@ -66,8 +65,6 @@ def hook_callback(data, bufferp, uber_empty, tagsn, isdisplayed,
 
     # highlight
     elif ishilight == "1" and (weechat.buffer_get_string(bufferp, 'localvar_away') or force_enabled == 'on'):
-        weechat.prnt("", str(isReset))
-        weechat.prnt("", "highlight")
         if isReset == 1:
             buffer = (weechat.buffer_get_string(bufferp, "short_name") or weechat.buffer_get_string(bufferp, "name"))
             if prefix == buffer: # treat as pm if user mentions your nick in a pm
@@ -79,7 +76,6 @@ def hook_callback(data, bufferp, uber_empty, tagsn, isdisplayed,
 
     # privmsg
     elif weechat.buffer_get_string(bufferp, "localvar_type") == "private" and (weechat.buffer_get_string(bufferp, 'localvar_away') or force_enabled == 'on'):
-        weechat.prnt("", "private")
         if isReset == 1:
             postProwl("WeeChat", "Private Message from " + prefix, message)
             flood_check()
