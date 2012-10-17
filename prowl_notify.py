@@ -26,7 +26,7 @@ flood_interval = '30' # time in seconds until reseting.
 import weechat, urllib, urllib2
 
 ## registration
-weechat.register("prowl_notify", "kidchunks", "1.0", "GPL", "prowl_notify: Push notifications to iPod Touch, iPhone or iPad with Prowl", "", "")
+weechat.register("prowl_notify", "kidchunks", "1.0", "GPL3", "prowl_notify: Push notifications to iPod Touch, iPhone or iPad with Prowl", "", "")
 
 ## variables
 isReset = 1
