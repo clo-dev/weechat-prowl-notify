@@ -26,7 +26,7 @@ flood_interval = '30' # time in seconds until reseting.
 import weechat, time
 
 ## registration
-weechat.register("prowl_notify", "kidchunks", "2.0", "GPL3", "prowl_notify: Push notifications to iPod Touch, iPhone or iPad with Prowl", "", "")
+weechat.register("prowl_notify", "kidchunks", "2.0", "GPL3", "Push notifications to iPod Touch, iPhone or iPad with Prowl", "", "")
 
 ## variables
 oldTime = 0;
@@ -47,7 +47,7 @@ def postProwl(label, title, message):
         opt_dict = "apikey=" + api_key + "&application=" + label + "&event=" + title + "&description=" + message
         weechat.hook_process_hashtable("url:https://api.prowlapp.com/publicapi/add?",
             { "postfields": opt_dict },
-            3 * 1000, "", "")
+            30 * 1000, "", "")
     else:
         weechat.prnt("", "API Key is missing!")
         return weechat.WEECHAT_RC_OK
@@ -73,4 +73,5 @@ def hook_callback(data, bufferp, uber_empty, tagsn, isdisplayed,
 
     return weechat.WEECHAT_RC_OK
 
-weechat.hook_print("", "irc_privmsg", "", 1, "hook_callback", "")
+weechat.hook_print("", "notify_message", "", 1, "hook_callback", "")
+weechat.hook_print("", "notify_private", "", 1, "hook_callback", "")
