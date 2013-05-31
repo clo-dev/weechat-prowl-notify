@@ -19,8 +19,7 @@
 ## settings
 api_key = '' # API key from Prowl
 force_enabled = 'off' # enables notifications even when not away "on//off"
-flood_protection =  'on' # helps prevent flooding "on//off"
-flood_interval = '30' # time in seconds until reseting.
+flood_interval = '30' # time in seconds between notifications, set to 0 to disable flood control
 
 ## libraries
 import weechat, time
