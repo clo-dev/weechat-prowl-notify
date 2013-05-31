@@ -24,21 +24,21 @@ flood_interval = '30' # time in seconds between notifications, set to 0 to disab
 ## libraries
 import weechat, time
 
+## variables
+old_time = time.time() - flood_interval
+
 ## registration
 weechat.register("prowl_notify", "kidchunks", "2.0", "GPL3", "Push notifications to iPod Touch, iPhone or iPad with Prowl", "", "")
 
-## variables
-oldTime = 0;
-
 ## functions
 def flood_check():
-    global oldTime
-    currentTime = int(time.time())
-    elaspedTime = currentTime - oldTime
-    if flood_interval >= elaspedTime:
+    current_time = time.time()
+    elapsed_time = current_time - old_time
+    if flood_interval >= elapsed_time:
         return False
     else:
-        oldTime = currentTime
+        global old_time
+        old_time = current_time
         return True
 
 def postProwl(label, title, message):
@@ -58,7 +58,7 @@ def hook_callback(data, bufferp, uber_empty, tagsn, isdisplayed,
 
     # highlight
     elif ishighlight == "1" and (weechat.buffer_get_string(bufferp, 'localvar_away') or force_enabled == 'on'):
-        if flood_check() or oldTime == 0:
+        if flood_check():
             buffer = (weechat.buffer_get_string(bufferp, "short_name") or weechat.buffer_get_string(bufferp, "name"))
             if prefix == buffer: # treat as pm if user mentions your nick in a pm
                 postProwl("WeeChat", "Private Message from " + prefix, message)
@@ -67,7 +67,7 @@ def hook_callback(data, bufferp, uber_empty, tagsn, isdisplayed,
 
     # privmsg
     elif weechat.buffer_get_string(bufferp, "localvar_type") == "private" and (weechat.buffer_get_string(bufferp, 'localvar_away') or force_enabled == 'on'):
-        if flood_check() or oldTime == 0:
+        if flood_check():
             postProwl("WeeChat", "Private Message from " + prefix, message)
 
     return weechat.WEECHAT_RC_OK
