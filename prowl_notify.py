@@ -62,13 +62,16 @@ def hook_callback(data, bufferp, uber_empty, tagsn, isdisplayed,
             buffer = (weechat.buffer_get_string(bufferp, "short_name") or weechat.buffer_get_string(bufferp, "name"))
             if prefix == buffer: # treat as pm if user mentions your nick in a pm
                 post_prowl("WeeChat", "Private Message from " + prefix, message)
+                weechat.command(bufferp, "/me has been notified, thanks " + prefix + ".")
             elif prefix != buffer: # otherwise, treat as highlight
                 post_prowl("WeeChat", prefix + " mentioned you on " + buffer,  message)
+                weechat.command(bufferp, "/me has been notified, thanks " + prefix + ".")
 
     ## privmsg
     elif weechat.buffer_get_string(bufferp, "localvar_type") == "private" and (weechat.buffer_get_string(bufferp, 'localvar_away') or FORCE_ENABLED == 'on'):
         if flood_check():
             post_prowl("WeeChat", "Private Message from " + prefix, message)
+            weechat.command(bufferp, "/me has been notified, thanks " + prefix + ".")
 
     return weechat.WEECHAT_RC_OK
 
