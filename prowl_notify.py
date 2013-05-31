@@ -18,8 +18,8 @@
 
 ## settings
 API_KEY = '' # API key from Prowl
-FORCE_ENABLED = 'off' # enables notifications even when not away "on//off"
-FLOOD_INTERVAL = '30' # time in seconds between notifications, set to 0 to disable flood control
+FORCE_ENABLED = False # enables notifications even when not away "on//off"
+FLOOD_INTERVAL = 30 # time in seconds between notifications, set to 0 to disable flood control
 
 ## libraries
 import weechat, time
@@ -53,11 +53,11 @@ def post_prowl(label, title, message):
 
 def hook_callback(data, bufferp, uber_empty, tagsn, isdisplayed,
         ishighlight, prefix, message):
-    if (bufferp == weechat.current_buffer()):
+    if (bufferp == weechat.current_buffer() and FORCE_ENABLED):
         pass
 
     ## highlight
-    if ishighlight == "1" and (weechat.buffer_get_string(bufferp, 'localvar_away') or FORCE_ENABLED == 'on'):
+    elif ishighlight == "1" and (weechat.buffer_get_string(bufferp, 'localvar_away') or FORCE_ENABLED):
         if flood_check():
             buffer = (weechat.buffer_get_string(bufferp, "short_name") or weechat.buffer_get_string(bufferp, "name"))
             if prefix == buffer: # treat as pm if user mentions your nick in a pm
@@ -68,7 +68,7 @@ def hook_callback(data, bufferp, uber_empty, tagsn, isdisplayed,
                 weechat.command(bufferp, "/me has been notified, thanks " + prefix + ".")
 
     ## privmsg
-    elif weechat.buffer_get_string(bufferp, "localvar_type") == "private" and (weechat.buffer_get_string(bufferp, 'localvar_away') or FORCE_ENABLED == 'on'):
+    elif weechat.buffer_get_string(bufferp, "localvar_type") == "private" and (weechat.buffer_get_string(bufferp, 'localvar_away') or FORCE_ENABLED):
         if flood_check():
             post_prowl("WeeChat", "Private Message from " + prefix, message)
             weechat.command(bufferp, "/me has been notified, thanks " + prefix + ".")
