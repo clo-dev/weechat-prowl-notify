@@ -17,8 +17,8 @@
 
 
 ## settings
-API_KEY = '' # API key from Prowl
-FORCE_ENABLED = False # enables notifications even when not away "on//off"
+API_KEY = '' # API key from Prow
+FORCE_ENABLED = False # enables notifications even when not away "True//Flse"
 FLOOD_INTERVAL = 30 # time in seconds between notifications, set to 0 to disable flood control
 
 ## libraries
@@ -32,12 +32,12 @@ weechat.register("prowl_notify", "kidchunks", "2.0", "GPL3", "Push notifications
 
 ## functions
 def flood_check():
+    global old_time
     current_time = time.time()
     elapsed_time = current_time - old_time
     if FLOOD_INTERVAL >= elapsed_time:
         return False
     else:
-        global old_time
         old_time = current_time
         return True
 
