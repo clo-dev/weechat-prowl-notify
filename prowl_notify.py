@@ -18,7 +18,7 @@
 
 ## settings
 API_KEY = '' # API key from Prow
-FORCE_ENABLED = False # enables notifications even when not away "True//Flse"
+FORCE_ENABLED = False # enables notifications even when not away "True//False"
 FLOOD_INTERVAL = 30 # time in seconds between notifications, set to 0 to disable flood control
 
 ## libraries
