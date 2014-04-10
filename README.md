@@ -8,7 +8,7 @@ Coming Soon!
 
 ## Installation and Usage
 1. `prowl_notify` requires Prowl installed on your iPod Touch, iPhone or iPad and along with an API key from Prowl.
-2. Edit prowl_notify.py and add your api key to "API_KEY". This can be multiple API Keys (seperated by commas).
+2. Edit `prowl_notify.py` and add your api key to `API_KEY` under `settings`. This can be multiple API Keys (seperated by commas).
 3. Place a copy of `prowl_notify.py` in `~/.weechat/python/autoload`.
 4. Once inside weechat, run the command `/python load python/autoload/prowl_notify.py`.
 5. Set yourself away!
