@@ -4,7 +4,7 @@ weechat-prowl-notify
 prowl_notify: Push notifications to iPod Touch, iPhone or iPad with [Prowl](http://prowlapp.com)
 
 ## Demo
-Coming Soon!
+[http://www.carlosjmarin.com/#projects/weechat-prowl-notify](http://www.carlosjmarin.com/#projects/weechat-prowl-notify)
 
 ## Installation and Usage
 1. `prowl_notify` requires Prowl installed on your iPod Touch, iPhone or iPad and along with an API key from Prowl.
