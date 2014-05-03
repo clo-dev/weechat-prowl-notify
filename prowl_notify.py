@@ -18,6 +18,7 @@ weechat.register("prowl_notify", "kidchunks", "3.0", "GPL3", "prowl_notify: Push
 API_KEY = '' # API key(s) from Prowl (seperated by commas)
 FORCE_ENABLED = False # enables notifications even when not away "True//False"
 FLOOD_INTERVAL = 30 # time in seconds between notifications, set to 0 to disable flood control
+PRIORITY = 0 # Prowl default is 0, but it could be useful to be able to change it.
 
 start_time = time.time() - FLOOD_INTERVAL
 
@@ -35,6 +36,7 @@ def flood_check():
 def post_prowl(label, title, message):
     opt_dict = urllib.urlencode({
         'apikey': API_KEY,
+        'priority': PRIORITY,
         'application': label,
         'event': title,
         'description': message
